@@ -1,0 +1,10 @@
+# Persönliche Statistiken nicht veröffentlichen
+darts_statistics_*.json
+*.xlsx
+Darts_Stats_*.png
+
+# Lokale Tool-Einstellungen
+.claude/
+
+# Originalversion (nur lokales Backup)
+Darts Breakfast Club 1-5-7.html
