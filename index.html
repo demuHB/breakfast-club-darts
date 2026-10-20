@@ -1621,17 +1621,23 @@
                     const r = this.radii;
                     const ctx = this.ctx;
                     const c = this.center;
+                    // Volle Ringe als zwei getrennte Kreise (moveTo), sonst entsteht eine Verbindungslinie bei 0° (an der 6)
+                    const fullRing = (inner, outer) => {
+                        ctx.beginPath();
+                        ctx.arc(c, c, outer, 0, 2 * Math.PI);
+                        ctx.moveTo(c + inner, c);
+                        ctx.arc(c, c, inner, 0, 2 * Math.PI, true);
+                    };
                     if (seg.number === 0) {
-                        this.ring(ctx, r.doubleOuter, r.outerBoard, 0, 2 * Math.PI);
+                        fullRing(r.doubleOuter, r.outerBoard);
                         return;
                     }
                     if (seg.number === 25) {
-                        ctx.beginPath();
                         if (seg.multiplier === 2) {
+                            ctx.beginPath();
                             ctx.arc(c, c, r.doubleBullseye, 0, 2 * Math.PI);
                         } else {
-                            ctx.arc(c, c, r.bull, 0, 2 * Math.PI);
-                            ctx.arc(c, c, r.doubleBullseye, 0, 2 * Math.PI, true);
+                            fullRing(r.doubleBullseye, r.bull);
                         }
                         return;
                     }
